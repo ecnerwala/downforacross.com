@@ -49,6 +49,8 @@ export default class Player extends Component {
       this.props.currentCursor?.r && this.props.currentCursor?.c
         ? this.props.currentCursor
         : this.getInitialSelected();
+    const username = localStorage.getItem(this.usernameKey)?.trim() || 'Player';
+    this.state.username = username;
     this.state = {
       selected: selected,
       direction: this.props.clues.across.length ? 'across' : 'down',
@@ -83,6 +85,7 @@ export default class Player extends Component {
   };
 
   componentDidMount() {
+    this.handleUpdateDisplayName(this.state.username);
     window.addEventListener('resize', this.updateSize);
     this.updateSize();
   }
