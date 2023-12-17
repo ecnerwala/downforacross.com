@@ -21,7 +21,7 @@ const isEmojis = (str) => {
 export default class Chat extends Component {
   constructor() {
     super();
-    const username = localStorage.getItem(this.usernameKey) || nameGenerator();
+    const username = localStorage.getItem(this.usernameKey) ? localStorage.getItem(this.usernameKey).trim() || 'Player' : nameGenerator();
     this.state = {
       username,
     };
@@ -51,7 +51,7 @@ export default class Chat extends Component {
 
   handleUpdateDisplayName = (username) => {
     if (!this.usernameInput?.current?.focused) {
-      username = username || nameGenerator();
+      username = username.trim() || 'Player';
     }
     const {id} = this.props;
     this.props.onUpdateDisplayName(id, username);
@@ -71,7 +71,7 @@ export default class Chat extends Component {
 
   handleBlur = () => {
     let {username} = this.state;
-    username = username || nameGenerator();
+    username = username.trim() || 'Player';
     this.setState({username});
   };
 
